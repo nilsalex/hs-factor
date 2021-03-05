@@ -2,29 +2,26 @@
 
 module Factor
     ( factor
-    , factorShor
     , periodNaive
     , modExp
     ) where
 
 import System.Random
-
--- | wrapper for Shor's algorithm
---
--- captures trivial cases
-factor :: RandomGen g => g -> Integer -> Integer
-factor g n
-  | n == 1    = 1 -- easy!
-  | even n    = 2 -- easy!
-  | otherwise = factorShor g n -- run Shor's algorithm
+    ( RandomGen
+    , randomR
+    )
 
 -- | Shor's algorithm
-factorShor :: RandomGen g => g -> Integer -> Integer
-factorShor g n
-    | gcDiv > 1 = gcDiv           -- we were lucky!
-    | odd r     = factorShor g' n -- try another guess
-    | b == -1   = factorShor g' n -- try another guess
-    | otherwise = gcd (b+1) n     -- we found a solution!
+--
+-- given a number which is the product of two relatively prime integers,
+-- yields a non-trivial factor of this composite number
+--
+factor :: RandomGen g => g -> Integer -> Integer
+factor g n
+    | gcDiv > 1 = gcDiv       -- we were lucky!
+    | odd r     = factor g' n -- try another guess
+    | b == n-1  = factor g' n -- try another guess
+    | otherwise = gcd (b+1) n -- we found a solution!
   where
     (guess, g') = randomR (2,n-1) g
     gcDiv       = gcd n guess
@@ -37,7 +34,7 @@ factorShor g n
 -- modExp n a (periodNaive n a) = 1
 -- @
 --
--- (classically and naive, i.e. very slow!)
+-- classically and naive, i.e. very slow
 periodNaive :: Integer -> Integer -> Integer
 periodNaive order base = go 1 base
   where
