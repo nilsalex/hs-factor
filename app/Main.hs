@@ -9,6 +9,10 @@ import System.IO
     , hSetBuffering
     , BufferMode (..)
     )
+import System.Random
+    ( getStdGen
+    , RandomGen
+    )
 import Text.Read
     ( readMaybe
     )
@@ -17,12 +21,12 @@ notAnIntMessage :: String -> String
 notAnIntMessage str =
   "\"" <> str <> "\"" <> " is not an integer"
 
-factorisationMessage :: Int -> Int -> Int -> String
+factorisationMessage :: Integer -> Integer -> Integer -> String
 factorisationMessage n k l =
   show n <> " = " <> show k <> " * " <> show l
 
-loop :: IO ()
-loop = do
+loop :: RandomGen g => g -> IO ()
+loop g = do
   hSetBuffering stdout NoBuffering
   putStr "enter an integer: "
   hSetBuffering stdout LineBuffering
@@ -31,11 +35,13 @@ loop = do
 
   case readMaybe input of
     Nothing -> putStrLn (notAnIntMessage input)
-    Just n  -> let k = factor n
+    Just n  -> let k = factor g n
                    l = n `div` k
                in putStrLn (factorisationMessage n k l)
 
-  loop
+  loop g
 
 main :: IO ()
-main = loop
+main = do
+    g <- getStdGen
+    loop g
