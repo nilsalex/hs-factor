@@ -14,6 +14,7 @@ import System.IO
     )
 import System.Random
     ( getStdGen
+    , newStdGen
     , RandomGen
     )
 import Text.Read
@@ -26,7 +27,10 @@ notAnIntMessage str =
 
 factorisationMessage :: Integer -> Integer -> Integer -> String
 factorisationMessage n k l =
-  show n <> " = " <> show k <> " * " <> show l
+    show n <> " = " <> show k' <> " * " <> show l'
+  where
+    k' = min k l
+    l' = max k l
 
 loop :: RandomGen g => g -> IO ()
 loop g = do
@@ -42,7 +46,8 @@ loop g = do
                    l = n `div` k
                in putStrLn (factorisationMessage n k l)
 
-  loop g
+  g' <- newStdGen
+  loop g'
 
 main :: IO ()
 main = do
