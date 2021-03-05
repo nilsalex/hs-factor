@@ -3,4 +3,14 @@ module Factor
     ) where
 
 factor :: Int -> Int
-factor = const 1
+factor n
+  | even n    = 2
+  | otherwise = factorNaive n
+
+factorNaive :: Int -> Int
+factorNaive n = go 3 n
+  where
+    go k n
+      | k > (n `div` 2) = 1
+      | n `mod` k == 0  = k
+      | otherwise       = go (k+1) n
