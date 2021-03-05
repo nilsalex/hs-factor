@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 823619e332b4bca693b43c25e8c5085b9dfe4662774d3d4d2bcfe0ee356e7558
+-- hash: a8ae73c37c731866a199b0c7a544e0d7799afee2495170830467b7c2a471291e
 
 name:           hs-factor
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Factor
+      Roots
   other-modules:
       Paths_hs_factor
   hs-source-dirs:

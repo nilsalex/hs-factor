@@ -2,22 +2,39 @@
 
 module Factor
     ( factor
+    , factorShor
     , periodNaive
     , modExp
     ) where
+
+import Roots
+    ( findRoot
+    )
 
 import System.Random
     ( RandomGen
     , randomR
     )
 
--- | Shor's algorithm
+-- | Given a non-zero integer, returns a non-trivial factor if the number is
+-- composite. Otherwise, 1 is returned.
 --
--- given a number which is the product of two relatively prime integers,
--- yields a non-trivial factor of this composite number
---
+-- Does not work for primes yet.
 factor :: RandomGen g => g -> Integer -> Integer
 factor g n
+    | n == 1    = 1
+    | even n    = 2
+    | otherwise =
+        case findRoot n of
+            Just r  -> r
+            Nothing -> factorShor g n
+
+-- | Shor's algorithm
+--
+-- Given a number which is the product of two relatively prime integers,
+-- yields a non-trivial factor of this composite number.
+factorShor :: RandomGen g => g -> Integer -> Integer
+factorShor g n
     | gcDiv > 1 = gcDiv       -- we were lucky!
     | odd r     = factor g' n -- try another guess
     | b == n-1  = factor g' n -- try another guess
