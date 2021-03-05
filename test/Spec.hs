@@ -12,4 +12,3 @@ prop_factor (Positive p) (Positive q) = k > 1 && n `mod` k == 0 && k * (n `div` 
 
 main :: IO ()
 main = quickCheck (withMaxSuccess 1000000 prop_factor)
-

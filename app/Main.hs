@@ -23,9 +23,9 @@ factorisationMessage n k l =
 
 loop :: IO ()
 loop = do
-  hSetBuffering stdout NoBuffering 
+  hSetBuffering stdout NoBuffering
   putStr "enter an integer: "
-  hSetBuffering stdout LineBuffering 
+  hSetBuffering stdout LineBuffering
 
   input <- getLine
 
