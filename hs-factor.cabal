@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 52acdde77790097e88edf0053cb580ab6544e52d46bb661a0a89b4ee0ffdf4dc
+-- hash: 823619e332b4bca693b43c25e8c5085b9dfe4662774d3d4d2bcfe0ee356e7558
 
 name:           hs-factor
 version:        0.1.0.0
@@ -44,7 +44,7 @@ executable hs-factor-exe
       Paths_hs_factor
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -O2 -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
     , base >=4.7 && <5

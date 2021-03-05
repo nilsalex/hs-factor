@@ -4,6 +4,9 @@ import Factor
     ( factor
     )
 
+import System.Environment
+    ( getArgs
+    )
 import System.IO
     ( stdout
     , hSetBuffering
@@ -44,4 +47,7 @@ loop g = do
 main :: IO ()
 main = do
     g <- getStdGen
-    loop g
+    args <- getArgs
+    case args of
+      []    -> loop g
+      arg:_ -> print $ factor g $ read arg

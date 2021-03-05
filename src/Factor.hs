@@ -12,8 +12,6 @@ factor g n
   | even n    = 2
   | otherwise = factorShor g n
 
--- assumption
--- ∃ p,q relatively prime : n = p*q
 factorShor :: RandomGen g => g -> Integer -> Integer
 factorShor g n
     | gcDiv > 1 = gcDiv
